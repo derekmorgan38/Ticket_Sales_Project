@@ -1,0 +1,129 @@
+
+#include <cctype>
+#include <string>
+#include <iomanip>
+#include <fstream>
+using namespace std;
+
+const int rowNum = 15;
+const int colNum = 20;
+const char available = '*';
+const char taken = '#';
+void displayTheater(char theater[][20], int rowNum, int colNum);
+void getPrices(double prices[]);
+
+
+int main()
+{
+	bool menu = true;
+	char choice;
+	int row, seat;
+	char theater[rowNum][colNum];
+	int ticket = 0;
+	double prices[15];
+
+	for (int i = 0; i < rowNum; i++)
+	{
+		for (int j = 0; j < colNum; j++)
+		{
+			theater[i][j] = available;
+		}
+	}
+
+	while (menu)
+	{
+		displayTheater(theater, rowNum, colNum);
+		getPrices(prices);
+		cout << endl << "Menu:\n";
+		cout << "1) Buy Ticket\n";
+		cout << "2) Total Sell and exit\n\n";
+		cout << "Enter your choice : ";
+		cin >> choice;
+		cout << endl;
+
+		switch (choice)
+		{
+		case '1':
+		{
+			cout << "Enter row: ";
+			cin >> row;
+			cout << endl;
+			cout << "Enter seat: ";
+			cin >> seat;
+			cout << endl;
+
+			if (theater[row][seat] = available)
+			{
+				theater[row][seat] = taken;
+				ticket++;
+			}
+
+			else
+			{
+				cout << "invalid choice\n";
+				//theater[row][seat] = taken;
+				//ticket++;
+
+			}
+			//user can't buy same seat twice(what i was trying to do below but didn't work)
+			//if(theater[row][seat] == taken)
+			//{
+			//cout << "Seat has already been taken, please select another one\n";
+			//continue;
+			//}
+
+			break;
+		}
+		case '2':
+		{
+			menu = false;
+			break;
+			//this is where the total sales will be displayed
+		}
+		default:
+		{
+			cout << "Invalid Choice\n\n";
+			break;
+		}
+
+		}
+
+	}
+
+
+
+	system("PAUSE");
+	return 0;
+}
+
+void displayTheater(char theater[][20], int rowNum, int colNum)
+{
+	cout << "* Seats available\n";
+	cout << "# Reserved Seats\n";
+	cout << "Seats:  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15" << endl;
+
+
+
+	for (int i = 0; i < rowNum; i++)
+	{
+		cout << "Row" << setw(3) << i;
+
+		for (int j = 0; j < colNum; j++)
+		{
+			cout << fixed << setw(2) << " " << theater[i][j];
+		}
+		cout << endl;
+	}
+}
+
+void getPrices(double prices[])
+{
+	ifstream inputFile;
+	inputFile.open("prices.txt");
+
+	for (int i = 0; i < 14; i++)
+	{
+		inputFile >> prices[i];
+	}
+
+}
